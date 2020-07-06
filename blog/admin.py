@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.db import models
-from .models import Blog, Category #Series
+from .models import Blog, Category Series
 
 # Register your models here.
 
