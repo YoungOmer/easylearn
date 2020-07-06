@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% load crispy_forms_tags %}
+
+
+
+
+{% block content %}
+
+
+<div class="container" style="max-width:700">
+    <div class="card shadow-sm" style="margin-top: 20px">
+        <div class="card-header">
+            <h6 style="margin-bottom: 0; margin-top: 7; display: inline-block">
+                <a href="/" class="text-success">EasyLearn QA forum
+                    {% if not current_user.is_authenticated %}
+                    
+                    <span class="site-title-second-half"> -Tech space for the enthusiasts</span>
+                    {% endif %}
+                </a>
+            </h6>
+            
+        </div>
+        <div class="pb-2 pr-2 pl-2">
+            <div class="container">
+                <form action="" method="post">
+                    <legend>LOGIN NOW</legend>
+                    {% csrf_token %} {{ form|crispy }}
+                    <button class="btn btn-block btn-primary" type="submit">Login</button>
+                </form>
+            
+                <div>
+                    <p>Don't have an account ? <a href="{% url 'register' %}">Sign Up</a></p>
+                    <p>Forgot Password ?<a href=""> Reset Password</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

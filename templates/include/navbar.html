@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-light  fixed-top"   style="background:#2b485c;">
+    <a class="navbar-brand ml-4 text-white" href='/'>EasyLearn</a>
+
+    <a href="#" data-toggle="collapse" aria-controls="navbarSupportedContent"
+    class="colorlib-nav-toggle" data-target="#navbarSupportedContent"><i></i>
+    </a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link text-white" href="{% url 'my-questions' %}">My questions<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link text-white" href="/question/new">Ask <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/leaderboard">Learderboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'blog_list' %}">Blog</a>
+            </li>
+
+        </ul> 
+        <div class="navbar-nav">
+            {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                <li class="nav-item">
+                    <a class="nav-link btn btn-sm btn-pill btn-outline-primary text-white" href="{% url 'admin:index' %}" tabindex="-1" aria-disabled="true">Admin Panel</a>
+                </li>
+                {% endif %}
+            <li class="nav-item">
+                <a class="nav-link btn btn-sm btn-pill btn-outline-danger text-white" href="{% url 'logout' %}" tabindex="-1" aria-disabled="true">Logout</a>
+            </li>
+            <li class="nav-item text-white">
+                <a href="{% url 'profile' %}">
+                    <img src="{{ user.profile_pic.url }}" style="height: 40px;" alt="" class="img-fluid img-thumbnail rounded-circle ml-2">
+                    {{ user.username }}
+                </a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link mr-2 btn btn-sm btn-outline-primary" href="{% url 'login' %}" tabindex="-1" aria-disabled="true">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-sm btn-outline-info" href="{% url 'register' %}" tabindex="-1" aria-disabled="true">Sign Up</a>
+            </li>
+            {% endif %}
+        </div>
+    </div>
+</nav>

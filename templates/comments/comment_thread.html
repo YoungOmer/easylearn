@@ -1,0 +1,64 @@
+{% extends 'base.html' %} {% block content %}{% load crispy_forms_tags %}
+
+<div class="pt-3">
+    <h3 class="">
+        {% if comment.children.count > 1 %}{{ comment.children.count }}Replies{% else %}{{ comment.children.count }} reply{% endif %}</h3>
+    <ul class="comment-list">
+
+        <li class="comment">
+            <div class="vcard bio">
+                <img src="{{ comment.user.profile_pic.url }}" alt="Image placeholder">
+            </div>
+            <div class="comment-body">
+                <h3>{{ comment.user }}</h3>
+                <small class="mute">{{ comment.time_stamp|timesince }}</small>
+                <p>{{ comment.content }}</p>
+                <p>
+                    <a class="comment-reply-btn reply">Reply</a>
+                </p>
+                <div class="comment-reply-form" style="display: none;">
+                    <form action="" method="post">
+                        {% csrf_token %} {{ form|crispy }}
+                        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                        <button class="btn btn-secondary btn-sm" value="Reply" type="submit">Reply</button>
+                    </form>
+                </div>
+            </div>
+
+
+
+            <ul>
+                <div class="comment-reply">
+                    {% for object in comment.children %}
+                    <li class="comment pt-2">
+                        <div class="vcard bio">
+                            <img src="{{ object.user.profile_pic.url }}" alt="Image placeholder">
+                        </div>
+
+                        <div class="comment-body">
+                            <p>{{ object.user }}
+                                {% if object.user.email == user.email %}
+                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" 
+                                    data-target="#exampleModalCenter{{ object.pk }}">
+                                    <i class="icon-trash"></i>
+                                  </button><span></span></p>{% endif %}
+                            
+                                    {% include 'comments/delete.html' %}
+                        
+                            <div class="meta">{{ object.time_stamp }}</div>
+                            <p>{{ object.content }}</p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </div>
+            </ul>
+        </li>
+    </ul>
+    <!-- END comment-list -->
+
+
+
+</div>
+
+
+{% endblock %}

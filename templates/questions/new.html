@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container" style="max-width:700">
+  <div class="card shadow-sm" style="margin-top: 20px">
+      <div class="card-header">
+          <h6 style="margin-bottom: 0; margin-top: 7; display: inline-block">
+              <a href="/" class="text-success">EasyLearn QA forum
+              </a>
+          </h6> 
+      </div>
+  </div>
+
+        {% if current_user.points > -1 %}
+        <form action="" method="post" class="mt-3">
+          {% csrf_token %}
+          <div class="justify-content-lg-center">
+            {{ form.media }}
+            {{ form|crispy }}
+          </div>
+          <button type="submit" class="btn btn-block btn-primary mb-2">Submit</button>
+        </form>
+        {% else %}
+        <p class="mt-4">Sorry, you need to have at least 0 point to ask a question.</p>
+        <p>Currently, you have {{ current_user.points }} points.</p>
+        <p>Your points will increase when you answer <a href="/">someone else's question</a> and another user upvotes your answer.</p>
+        <p>
+          Alternatively, you can share CSQA on Facebook or Twitter to earn a point.
+          For more info about it, please take a look at <a href="https://csqa.io/question/250/">this thread.</a>
+        </p>
+        {% endif %}
+
+</div>
+{% endblock %}

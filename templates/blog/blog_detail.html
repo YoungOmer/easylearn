@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block title %} {{ object.title }}{% endblock %}
+ {% load static %} {% load crispy_forms_tags %}
+
+
+ {% block content %}
+ {% include 'blog/delete.html' %}
+<section class="ftco-section pt-2 ftco-no-pb">
+    <div class="container-fluid">
+        <div class="row d-flex">
+            <div class="col-lg-8 px-md-5 py-2">
+                <div class="row pt-md-4">
+                    {% if object.image %}
+                    <p>
+                        <img src="{{ object.image.url }}" alt="" class="img-fluid">
+                    </p>
+                    {% endif %}
+                    <h3 class="mb-3">{{ object.title }}</h3><br>                
+                        <div class="tagcloud">
+                            {% if object.author == user or user.is_superuser %}
+                            <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal"
+                                        data-target="#exampleModalCenter{{ object.pk }}">
+                                <i class="icon-trash"></i>
+                            </button>
+                            <a href="{% url 'blog_update' object.pk %}" class="btn btn-outline-secondary btn-sm">
+                                <i class="icon-edit"></i>
+                            </a>
+                            
+                            {% endif %}
+                            {% for cate in object.category.all %}
+                                <a href="{{ cate.get_absolute_url }}" class="tag-cloud-link">{{ cate }}</a>
+                            {% endfor %}
+
+                            {% if is_liked %}
+                            <span class="mr-2">
+                                <a href="{% url 'likeBlog' object.pk %}">
+                                <i class="icon-thumbs-up"></i>
+                                </a>{{ object.like.count }}
+                            </span>
+                            {% else %}
+                            <span class="mr-2">
+                                <a href="{% url 'likeBlog' object.pk %}">
+                                <i class="icon-thumbs-o-up"></i>
+                                </a>{{ object.like.count }}
+                            </span>
+                            {% endif %}
+
+                            {% if is_disliked %}
+                            <span class="mr-2">
+                                <a href="{% url 'disLikeBlog' object.pk %}">
+                                    <i class="icon-thumbs-down"></i>
+                                </a>{{ object.dislike.count }}   
+                            </span>
+                            {% else %}
+                            <span class="mr-2">
+                                <a href="{% url 'disLikeBlog' object.pk %}">
+                                    <i class="icon-thumbs-o-down"></i>
+                                </a>{{ object.dislike.count }}   
+                            </span>
+                            {% endif %}
+                        </div>
+                    <p class="ml-2 mr-2">{{ object.content|safe|urlize }}</p>                   
+                </div>
+                <!-- END-->
+            </div>            
+            </div>
+            <!-- END COL -->
+        </div>
+    </div>
+</section>
+<br>
+                    <!-- load disqus -->
+                         
+               <div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = PAGE_URL;  "http://easylearnn.pythonanywhere.com/blog/{{url}}/"
+this.page.identifier = "{{url}}"
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://dev-hub.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <!-- load disqus -->
+{% endblock %}
