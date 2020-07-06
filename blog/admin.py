@@ -1,15 +1,15 @@
 from django.contrib import admin
 from django.db import models
-from .models import Blog, Category, Series
+from .models import Blog, Category #Series
 
 # Register your models here.
 
 admin.site.register(Category)
-
+'''
 @admin.register(Series)
 class AdminSeries(admin.ModelAdmin):
     list_display = ['title','owner']
-
+'''
 
 @admin.register(Blog)
 class AdminBlog(admin.ModelAdmin):

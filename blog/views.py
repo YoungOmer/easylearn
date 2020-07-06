@@ -5,13 +5,14 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
-from .models import Blog, Category, Series
+from .models import Blog, Category #Series
 from .forms import BlogForm
 # Create your views here.
 
 
 
 ###################### SERIES RELATED #####################
+'''
 class SeriesCreate(LoginRequiredMixin, CreateView):
     model       =   Series
     fields      =   ['title']
@@ -22,7 +23,7 @@ class SeriesCreate(LoginRequiredMixin, CreateView):
 
 class SeriesDetail(DetailView):
     model       =   Series
-
+'''
 
 class BlogCreate(LoginRequiredMixin, CreateView):
     form_class  =   BlogForm

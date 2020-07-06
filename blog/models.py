@@ -24,7 +24,7 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('blog_category', kwargs={'slug': self.slug})
 
-
+'''
 class Series(models.Model):
     owner       =   models.ForeignKey(User, related_name="owner", null=True, on_delete=models.CASCADE)
     title       =   models.CharField(max_length=129)
@@ -41,7 +41,7 @@ class Series(models.Model):
     def get_absolute_url(self):
         return reverse('series_detail', kwargs={'slug':self.slug})
 
-
+'''
 
 class Blog(models.Model):
     author      =   models.ForeignKey(User, on_delete=models.CASCADE)
@@ -50,7 +50,7 @@ class Blog(models.Model):
     view        =   models.PositiveIntegerField(default=0)
     image       =   models.ImageField(upload_to = "blog/%Y/%m/%d/", blank=True, null=True)
     category    =   models.ManyToManyField(Category, related_name="category")
-    series      =   models.ManyToManyField(Series, blank=True, related_name="series")
+    #series      =   models.ManyToManyField(Series, blank=True, related_name="series")
     date_stamp  =   models.DateTimeField(auto_now_add=True)
     like        =   models.ManyToManyField(User, blank=True, related_name="like")
     dislike     =   models.ManyToManyField(User, blank=True, related_name="dislike")
@@ -73,5 +73,5 @@ def slug_generator(sender, instance, *args, **kargs):
     if not instance.slug:
         instance.slug = unique_slug_generator(instance)
 
-pre_save.connect(slug_generator, sender=Series)
+#pre_save.connect(slug_generator, sender=Series)
 pre_save.connect(slug_generator, sender=Blog)
