@@ -26,10 +26,11 @@ class Category(models.Model):
 
 
 class Series(models.Model):
-    owner       =       models.ForeignKey(User, related_name="owner", null=True, on_delete=models.CASCADE)
-    title       =       models.CharField(max_length=129)
-    slug        =       models.SlugField(unique=True, blank=True)
-    timestamp   =       models.DateTimeField(auto_now_add=True)
+    owner       =   models.ForeignKey(User, related_name="owner", null=True, on_delete=models.CASCADE)
+    title       =   models.CharField(max_length=129)
+    summary     =   RichTextField(max_length=2000, null=True)
+    slug        =   models.SlugField(unique=True, blank=True)
+    timestamp   =   models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
@@ -65,19 +66,6 @@ class Blog(models.Model):
 
     def get_absolute_url(self):
         return reverse('blog_detail', kwargs={'pk':self.pk})
-
-    # @property
-    # def comments(self):
-    #     instance = self
-    #     qs = Comment.objects.filter_by_instance(instance)
-    #     return qs
-
-    # @property
-    # def get_content_type(self):
-    #     instance = self
-    #     content_type = ContentType.objects.get_for_model(instance.__class__)
-    #     return content_type
-
 
 
 #### Generate Unique Slug

@@ -5,7 +5,17 @@
 <div class="container-fluid pt-3">
     <div class="row">
         <div class="col-md-8">
-            <p><h3>{{ object.title }}</h3> {{ object.all }} blog posts</p>
+            <h3>{{ object.title }}</h3>
+            <p> by {{ object.owner }}
+
+                {% if object.owner == user or user.is_superuser %}
+                <span><a class="badge badge-info" href="">update</a></span>
+                <span><a class="badge badge-danger" href="">delete</a></span>
+                {% endif %}
+            </p>
+            <div class="media">
+                {{ object.summary}}
+            </div>
         </div>
 
         <div class="col-md-4"></div>

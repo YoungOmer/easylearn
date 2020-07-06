@@ -184,7 +184,7 @@ def myQuestionsView(request):
 @login_required
 def questionUpdate(request, id):
     obj = get_object_or_404(Question, id=id)
-    if obj.user == request.user:
+    if obj.user == request.user or request.user.is_superuser:
         form = QuestionForm(instance=obj)
         if request.method == "POST":
             form = QuestionForm(request.POST, instance=obj)

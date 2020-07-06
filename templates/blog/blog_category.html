@@ -1,4 +1,4 @@
-{% extends 'base2.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
 
 <section class="ftco-section ftco-no-pt ftco-no-pb">
@@ -17,45 +17,41 @@
         <div class="row d-flex">
             <div class="col-xl-8 px-md-5">
                 <div class="row pt-md-2">
-                    {% for obj in object_list %} {% include 'blog/delete.html' %}
+                    {% for object in object_list %} {% include 'blog/delete.html' %}
                     <div class="col-md-12 ">
                         <div class="blog-entry-2">
-                            {% if obj.image %}
+                            {% if object.image %}
                             <a href="{{ obj.get_absolute_url }}" class="img" style="background-image: url({% static 'images/image_1.jpg' %});"></a>
                             {% endif %}
                             <div class="text pt-0">
-                                <h3 class="mb-1"><a href="{{ obj.get_absolute_url }}">{{ obj.title|truncatewords:8 }}</a></h3>
-                                <p class="mb-3">{{ obj.content|truncatewords:22 }} <a href="">Read more</a></p>
+                                <h3 class="mb-1"><a href="{{ object.get_absolute_url }}">{{ object.title|truncatewords:8 }}</a></h3>
+                                <p class="mb-3">{{ object.content|safe|truncatewords:22 }} <a href="">Read more</a></p>
                                 <div class="author mb-0 d-flex">
                                     <a href="#" class="img" style="background-image: url({{ obj.author.profile_pic.url }});"></a>
                                     <div class="ml-3 info">
                                         <span>Written by</span>
                                         <span>
-                        {% if obj.author.email == user.email %}
-                        <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter{{ obj.pk }}">
+                        {% if object.author.email == user.email %}
+                        <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter{{ object.pk }}">
                           <i class="icon-trash"></i>
                         </button>
                         {% endif %}
                         
                         </span>
-                            <h3><a href="#">{{ obj.author }}</a>,
+                            <h3><a href="#">{{ object.author }}</a>,
                         <span>June 28, 2019</span></h3>
                                     </div>
 
                                     <div class="">
                                         <p class="meta text-right">
                                             <span class="mr-2">
-                          <a href="{% url 'likeBlog' obj.pk %}">
-                            <i class="icon-thumbs-o-up"></i>
-                          </a>
-                            {{ obj.like.count }}
-                        </span>
+                                                <i class="icon-thumbs-o-up"></i>
+                                                {{ obj.like.count }}
+                                            </span>
                                             <span class="mr-2">
-                          <a href="{% url 'disLikeBlog' obj.pk %}">
-                            <i class="icon-thumbs-down"></i>
-                          </a>
-                          {{ obj.dislike.count }}
-                        </span>
+                                                <i class="icon-thumbs-down"></i>
+                                                    {{ obj.dislike.count }}
+                                            </span>
                                             <span class="mr-2"><i class="icon-comment"></i>{{ obj.comments.count }}</span>
                                             <span><i class="icon-eye"></i>{{ obj.view }}</span>
                                         </p>
