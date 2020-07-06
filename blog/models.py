@@ -24,7 +24,7 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('blog_category', kwargs={'slug': self.slug})
 
-'''
+
 class Series(models.Model):
     owner       =   models.ForeignKey(User, related_name="owner", null=True, on_delete=models.CASCADE)
     title       =   models.CharField(max_length=129)
@@ -41,7 +41,7 @@ class Series(models.Model):
     def get_absolute_url(self):
         return reverse('series_detail', kwargs={'slug':self.slug})
 
-'''
+
 
 class Blog(models.Model):
     author      =   models.ForeignKey(User, on_delete=models.CASCADE)

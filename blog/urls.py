@@ -4,7 +4,7 @@ from .views import *
 
 urlpatterns = [
     ###### SERIES RELATED #####
-    #path('series/<str:slug>/', SeriesDetail.as_view(), name="series_detail"),
+    path('series/<str:slug>/', SeriesDetail.as_view(), name="series_detail"),
     ###### SERIES RELATED END HERE ######
 
     ###### BLOG RELATED #########

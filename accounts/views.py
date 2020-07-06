@@ -32,7 +32,7 @@ def register(request):
 @login_required
 def profile(request):
     blog_list   =   Blog.objects.filter(author=request.user).order_by('-date_stamp')
-    #series_list =   Series.objects.filter(owner=request.user).order_by('-timestamp')
+    series_list =   Series.objects.filter(owner=request.user).order_by('-timestamp')
     form        =   BioUpdate(instance=request.user)
     if request.method == "POST":
         form           =   BioUpdate(request.POST, instance=request.user)
@@ -41,7 +41,7 @@ def profile(request):
             return redirect('profile')
 
     context = {
-        #'series_list':  series_list,
+        'series_list':  series_list,
         'blog_list':blog_list,
         'form':form
     }

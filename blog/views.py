@@ -12,7 +12,6 @@ from .forms import BlogForm
 
 
 ###################### SERIES RELATED #####################
-'''
 class SeriesCreate(LoginRequiredMixin, CreateView):
     model       =   Series
     fields      =   ['title']
@@ -23,7 +22,7 @@ class SeriesCreate(LoginRequiredMixin, CreateView):
 
 class SeriesDetail(DetailView):
     model       =   Series
-'''
+
 
 class BlogCreate(LoginRequiredMixin, CreateView):
     form_class  =   BlogForm
